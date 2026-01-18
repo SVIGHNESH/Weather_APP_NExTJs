@@ -69,13 +69,13 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see hourly weather (next 24-48 hours) in a scrollable timeline with temperatures and icons so I can plan my day.
 
 **Acceptance Criteria:**
-- [ ] Horizontal scrollable hourly list with: time, temp, condition icon, precipitation %
-- [ ] Highlight current hour
-- [ ] Tap/click hour to show detailed info (feels-like, wind, humidity)
-- [ ] Support 24 and 48-hour modes with toggle
-- [ ] Responsive and smooth scroll
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Horizontal scrollable hourly list with: time, temp, condition icon, precipitation %
+- [x] Highlight current hour
+- [x] Tap/click hour to show detailed info (feels-like, wind, humidity)
+- [x] Support 24 and 48-hour modes with toggle
+- [x] Responsive and smooth scroll
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-006: Build daily forecast component with max/min temps
 **Description:** As a user, I want to see a 7-day forecast with high/low temps and condition icons so I can plan ahead.

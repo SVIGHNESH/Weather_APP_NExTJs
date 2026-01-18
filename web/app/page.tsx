@@ -1,6 +1,7 @@
 'use client';
 
 import { CurrentWeatherDisplay } from '@/components/CurrentWeatherDisplay';
+import { HourlyForecast } from '@/components/HourlyForecast';
 import { useWeather } from '@/hooks/useWeather';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         )}
 
         <CurrentWeatherDisplay weather={weather} loading={loading} />
+        <HourlyForecast weather={weather} loading={loading} />
       </div>
     </main>
   );
