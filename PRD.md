@@ -118,14 +118,14 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to search for cities/locations with autocomplete suggestions so I can quickly check weather anywhere.
 
 **Acceptance Criteria:**
-- [ ] Search input with debounced autocomplete (300ms)
-- [ ] Show 5-10 location suggestions as user types
-- [ ] Clicking suggestion fetches weather for that location
-- [ ] Adds location to history automatically
-- [ ] Search works for city names, zip codes, coordinates
-- [ ] Loading state during search
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Search input with debounced autocomplete (300ms)
+- [x] Show 5-10 location suggestions as user types
+- [x] Clicking suggestion fetches weather for that location
+- [x] Adds location to history automatically
+- [x] Search works for city names, zip codes, coordinates
+- [x] Loading state during search
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-010: Build location favorites sidebar/panel
 **Description:** As a user, I want to see my favorite locations in a sidebar so I can quickly switch between saved places.
