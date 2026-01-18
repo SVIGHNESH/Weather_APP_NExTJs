@@ -131,15 +131,15 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see my favorite locations in a sidebar so I can quickly switch between saved places.
 
 **Acceptance Criteria:**
-- [ ] Sidebar/drawer showing all saved locations
-- [ ] Star icon to toggle favorite status
-- [ ] Recently accessed locations shown first
-- [ ] Tap to switch weather view to that location
-- [ ] Add new location button opens search
-- [ ] Long press/right-click to delete location
-- [ ] Smooth slide animations
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Sidebar/drawer showing all saved locations
+- [x] Star icon to toggle favorite status
+- [x] Recently accessed locations shown first
+- [x] Tap to switch weather view to that location
+- [x] Add new location button opens search
+- [x] Long press/right-click to delete location
+- [x] Smooth slide animations
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-011: Implement data persistence and offline mode
 **Description:** As a user, I want the app to work offline with cached weather data so I can view last-known conditions without internet.

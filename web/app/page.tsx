@@ -7,15 +7,19 @@ import { DailyForecast } from '@/components/DailyForecast';
 import { WeatherMap } from '@/components/WeatherMap';
 import { SettingsPanel } from '@/components/SettingsPanel';
 import { LocationSearch } from '@/components/LocationSearch';
+import { FavoritesPanel } from '@/components/FavoritesPanel';
 import { useWeather } from '@/hooks/useWeather';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import { useFavoriteLocations } from '@/hooks/useFavoriteLocations';
 import { LocationSuggestion } from '@/hooks/useLocationSearch';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'weather' | 'map'>('weather');
   const [showLocationSearch, setShowLocationSearch] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<LocationSuggestion | null>(null);
   const geolocation = useGeolocation();
+  const { favorites, addLocation, removeLocation, toggleFavorite, updateLastAccessed, getSortedFavorites } = useFavoriteLocations();
   
   const latitude = selectedLocation?.latitude ?? geolocation.latitude;
   const longitude = selectedLocation?.longitude ?? geolocation.longitude;
@@ -26,7 +30,38 @@ export default function Home() {
   const handleLocationSelect = (location: LocationSuggestion) => {
     setSelectedLocation(location);
     setShowLocationSearch(false);
+    
+    // Add to favorites automatically
+    const existingFavorite = favorites.find(
+      fav => fav.latitude === location.latitude && fav.longitude === location.longitude
+    );
+    
+    if (!existingFavorite) {
+      addLocation(location.name, location.latitude, location.longitude);
+    } else {
+      updateLastAccessed(existingFavorite.id);
+    }
   };
+
+  const handleFavoriteSelect = (location: FavoriteLocation) => {
+    setSelectedLocation({
+      name: location.name,
+      latitude: location.latitude,
+      longitude: location.longitude,
+    });
+    updateLastAccessed(location.id);
+    setShowFavorites(false);
+  };
+
+  // Import type for TypeScript
+  interface FavoriteLocation {
+    id: string;
+    name: string;
+    latitude: number;
+    longitude: number;
+    isFavorite: boolean;
+    lastAccessedAt: number;
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-8">
@@ -103,6 +138,17 @@ export default function Home() {
           onClose={() => setShowLocationSearch(false)}
         />
       )}
+
+      {/* Favorites panel */}
+      <FavoritesPanel
+        favorites={getSortedFavorites()}
+        onLocationSelect={handleFavoriteSelect}
+        onAddLocation={() => setShowLocationSearch(true)}
+        onRemoveLocation={removeLocation}
+        onToggleFavorite={toggleFavorite}
+        isOpen={showFavorites}
+        onToggle={() => setShowFavorites(!showFavorites)}
+      />
 
       {/* Settings panel */}
       <SettingsPanel
