@@ -71,28 +71,25 @@ US-001, US-002, US-003, and US-004 completed. Backend API and current weather di
   - Express route params with (/:id) can be strings or arrays depending on request; normalize them
   - Created PrismaClient instance per route file (could be optimized as singleton in production)
 
-## Iteration 4 - Build current weather display component
-- Initialized Next.js 16 project with TypeScript and Tailwind CSS in /web directory
-- Created weather types file with WeatherData interface containing current, hourly, daily, and alerts data
-- Created useWeather hook that fetches weather data from backend API using lat/lon coordinates
-- Built CurrentWeatherDisplay React component with:
-  - Large temperature display showing feels-like temperature highlighted
-  - Weather emoji icons based on condition strings
-  - Grid layout (2 columns mobile, 3 columns desktop) showing humidity, wind speed, pressure, UV index, visibility, feels-like
-  - Responsive design using Tailwind CSS breakpoints (md: for medium+ screens)
-  - Smooth fade and scale animations on data refresh using CSS transitions
-  - Loading skeleton state while fetching data
-  - Error state display
-- Updated main page.tsx to use the component with NYC coordinates as default
-- Created .env.local with NEXT_PUBLIC_API_URL pointing to backend API
-- Both backend and frontend compile successfully with TypeScript
-- Files created: web/components/CurrentWeatherDisplay.tsx, web/hooks/useWeather.ts, web/types/weather.ts, web/app/page.tsx (.env.local)
-- Modified: web/app/page.tsx to integrate CurrentWeatherDisplay
+## Iteration 5 - Build hourly forecast component with interactive timeline
+- Created HourlyForecast React component with horizontal scrollable list
+- Implemented time, temperature, condition icon, and precipitation % display for each hour
+- Added current hour highlighting with gradient background and ring styling
+- Created 24/48-hour mode toggle buttons for switching forecast length
+- Implemented click/tap functionality to show detailed info for selected hour
+- Detailed info panel shows time, temperature, precipitation, and condition description
+- Added smooth animations and responsive design with Tailwind CSS
+- Automatic current hour detection based on system time
+- Weather emoji icons for different conditions (clear, cloud, rain, snow, storm, etc.)
+- Files created: web/components/HourlyForecast.tsx
+- Modified: web/app/page.tsx to import and include HourlyForecast component
+- TypeScript compilation passes with no errors
 - Learnings for future iterations:
-  - Next.js components must be marked with 'use client' to use React hooks on client side
-  - NEXT_PUBLIC_ prefix makes environment variables accessible to client-side code
-  - Tailwind CSS transitions and animations provide smooth UX without writing custom CSS
-  - Weather icons can be represented with emojis for simplicity; more complex icons require icon libraries
-  - Grid layouts in Tailwind use grid-cols-{n} and can be responsive with md:grid-cols-{n}
-  - Component re-renders can be optimized by memoizing or checking dependencies in useEffect
+  - Horizontal scroll containers can be styled with Tailwind's overflow-x-auto
+  - Scrollbar hiding via CSS using scrollbar-hide class with webkit-scrollbar
+  - Current hour detection uses Date.getHours() comparison
+  - Button states managed with conditional className rendering for visual feedback
+  - Detailed info shows only when an hour is selected, using state management
+  - Time formatting uses 12-hour format with AM/PM indicator
+  - Grid layout for detailed info uses grid-cols-3 to display 3 key metrics
 ---

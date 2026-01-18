@@ -81,12 +81,12 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see a 7-day forecast with high/low temps and condition icons so I can plan ahead.
 
 **Acceptance Criteria:**
-- [ ] Daily forecast cards: day, high/low temps, condition icon, precipitation chance
-- [ ] Expandable cards to show hourly breakdown for that day
-- [ ] Smooth expand/collapse animations
-- [ ] Mobile-friendly vertical scroll
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Daily forecast cards: day, high/low temps, condition icon, precipitation chance
+- [x] Expandable cards to show hourly breakdown for that day
+- [x] Smooth expand/collapse animations
+- [x] Mobile-friendly vertical scroll
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-007: Implement real-time satellite/cloud map with Leaflet/Mapbox
 **Description:** As a user, I want to see an interactive map with real-time satellite imagery and cloud overlay so I can visualize weather patterns.
