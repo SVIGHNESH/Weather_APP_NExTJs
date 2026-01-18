@@ -57,13 +57,13 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see current weather prominently with feels-like temp, condition description, and key metrics so I understand conditions at a glance.
 
 **Acceptance Criteria:**
-- [ ] Large current temperature display (feels-like temp highlighted)
-- [ ] Weather condition icon + description
-- [ ] Grid showing: Humidity, Wind Speed, Pressure, UV Index, Visibility
-- [ ] Responsive layout (mobile, tablet, desktop)
-- [ ] Smooth animations on data refresh
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Large current temperature display (feels-like temp highlighted)
+- [x] Weather condition icon + description
+- [x] Grid showing: Humidity, Wind Speed, Pressure, UV Index, Visibility
+- [x] Responsive layout (mobile, tablet, desktop)
+- [x] Smooth animations on data refresh
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-005: Build hourly forecast component with interactive timeline
 **Description:** As a user, I want to see hourly weather (next 24-48 hours) in a scrollable timeline with temperatures and icons so I can plan my day.

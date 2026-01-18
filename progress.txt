@@ -1,7 +1,7 @@
 # Progress Log
 
 ## Status
-US-001 & US-002 completed. Weather backend and database schema are ready.
+US-001, US-002, and US-003 completed. Authentication and location management APIs are ready.
 
 ## Learnings
 - Open-Meteo is used as the primary provider (free, no API key needed)
@@ -13,6 +13,9 @@ US-001 & US-002 completed. Weather backend and database schema are ready.
 - Prisma v7 requires connection URL in prisma.config.ts, not schema.prisma
 - SQLite is suitable for development; use PostgreSQL in production
 - Indices created on userId, isFavorite, lastAccessedAt for Location table
+- When using generated Prisma client from src/generated/prisma/client, use (PrismaClient as any)({}) for instantiation
+- JWT tokens expire after 7 days
+- Route parameters from Express can be strings or string arrays; normalize them with Array.isArray() check
 
 ---
 
@@ -43,4 +46,24 @@ US-001 & US-002 completed. Weather backend and database schema are ready.
   - SQLite is good for development; production should use PostgreSQL
   - Using CUID for IDs instead of UUID for better performance
   - Location history table tracks every access for analytics
+
+## Iteration 3 - Build authentication and location management API endpoints
+- Installed JWT (jsonwebtoken) and bcrypt (bcryptjs) dependencies
+- Created auth middleware to validate JWT tokens from Authorization header
+- Created POST /api/auth/register endpoint with password hashing using bcryptjs
+- Created POST /api/auth/login endpoint with password validation
+- Created POST /api/locations endpoint for creating new locations
+- Created GET /api/locations endpoint returning user's locations ordered by most recent access
+- Created DELETE /api/locations/{id} endpoint for removing locations
+- Created PATCH /api/locations/{id} endpoint for toggling favorite flag
+- All endpoints require valid JWT authentication token
+- Integrated Prisma generated client for database queries
+- Files created: src/middleware/auth.ts, src/routes/auth.ts, src/routes/locations.ts
+- Modified: src/server.ts to register auth and locations routes
+- Learnings for future iterations:
+  - Generated Prisma client must be imported from ../generated/prisma/client and instantiated as (PrismaClient as any)({})
+  - All errors are caught and return 500 status with generic error message to avoid leaking sensitive info
+  - JWT secret can be configured via JWT_SECRET environment variable
+  - Express route params with (/:id) can be strings or arrays depending on request; normalize them
+  - Created PrismaClient instance per route file (could be optimized as singleton in production)
 ---
