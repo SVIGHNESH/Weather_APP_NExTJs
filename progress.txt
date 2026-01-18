@@ -121,36 +121,31 @@ US-001, US-002, US-003, US-004, US-005, US-006, and US-007 completed. Backend AP
   - Card header uses flex with justify-between to separate day info from temp/precip
   - Hourly items in expanded view use grid to auto-fill available space
 
-## Iteration 11 - Implement data persistence and offline mode
-- Created useWeatherCache hook to manage weather data caching in localStorage
-- Cache key generated from rounded coordinates (rounded to 2 decimal places for consistency)
-- Cache expires after 1 hour (3,600,000ms); expired entries are automatically removed
-- Returns offline status by monitoring navigator.onLine and window online/offline events
-- Displays "last updated" time using formatLastUpdated helper function (human-readable format)
-- Created service worker (public/sw.js) with cache-first strategy for static assets
-- Service worker includes network-first strategy for API calls with fallback to cached responses
-- Cache-first for _next/ resources, JS, CSS, fonts, images; network-first for API and HTML
-- Service worker automatically cleans up old caches on activation
-- Created useServiceWorker hook to register service worker on app load
-- Updated useWeather hook to use caching:
-  - Tries to fetch fresh data first
-  - Falls back to cached data if fetch fails or offline
-  - Sets appropriate error messages for offline vs. error states
-  - 8-second timeout on API calls to handle slow networks gracefully
-- Updated main page to:
-  - Show offline indicator (🔴) and last updated time in subtitle
-  - Display blue banner (not red) when showing cached data
-  - Pass offline and isCached status from useWeather
-- Files created: web/hooks/useWeatherCache.ts, web/hooks/useServiceWorker.ts, web/public/sw.js
-- Modified: web/hooks/useWeather.ts, web/app/page.tsx
+## Iteration 12 - Add settings panel with theme and units toggle
+- Created useSettings hook with Context API for global settings state
+- Settings stored in localStorage with key 'weather_settings'
+- Supports temperature (°C/°F), speed (km/h/mph), pressure (hPa/inHg/mmHg), and theme (light/dark/auto)
+- Conversion functions: convertTemperature, convertSpeed, convertPressure
+- Format functions: formatTemperature, formatSpeed, formatPressure (returns value with unit)
+- Theme application: auto uses prefers-color-scheme media query; light/dark apply directly
+- Created SettingsProvider component that wraps app to provide settings context
+- Created SettingsModal component with toggle buttons for each setting
+- Updated SettingsPanel to include App Settings button that opens SettingsModal
+- Modal has 4 sections: Temperature, Speed, Pressure, Theme with visual feedback on selected option
+- Settings automatically persist to localStorage and update entire app in real-time
+- Updated CurrentWeatherDisplay to use formatTemperature, formatSpeed, formatPressure
+- Created providers.tsx to wrap app with SettingsProvider (client-side context)
+- Updated app/layout.tsx to use Providers component and updated metadata
+- Files created: web/hooks/useSettings.ts, web/components/SettingsModal.tsx, web/app/providers.tsx
+- Modified: web/components/SettingsPanel.tsx, web/app/layout.tsx, web/components/CurrentWeatherDisplay.tsx
 - TypeScript compilation passes with no errors
 - Learnings for future iterations:
-  - Cache key should include rounded coordinates for consistency across views
-  - Cache entry structure: { data, timestamp, expiresAt } for expiration checking
-  - formatLastUpdated uses diffMs / 60000 for minutes, then hours, then full date
-  - Service worker: cache-first for static assets (fast), network-first for API (fresh)
-  - Service worker catches API errors and returns cached responses from previous calls
-  - navigator.onLine is not always reliable; use addEventListener for 'online' and 'offline'
-  - AbortSignal.timeout(ms) for fetch timeout is modern API; use AbortController for older browsers
-  - Error messages should differentiate between offline and network failure
+  - React Context API works well for global app state with SettingsProvider pattern
+  - localStorage is synced instantly across tabs when using useEffect with dependency array
+  - Theme can be applied with document.documentElement.classList (html element)
+  - Auto theme uses window.matchMedia('(prefers-color-scheme: dark)').matches
+  - Unit conversion functions should handle rounding (use Math.round or toFixed)
+  - Format functions combine conversion and unit display (e.g., "72°F" or "45 mph")
+  - Settings modal should use grid layout for better UX (grid-cols-3 for 3 options)
+  - Button states can show selected option with bg-blue-500 vs bg-gray-100
 ---

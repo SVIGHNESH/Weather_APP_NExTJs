@@ -81,13 +81,22 @@ export default function Home() {
               </p>
             )}
           </div>
-          <button
-            onClick={() => setShowLocationSearch(true)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
-            title="Search locations"
-          >
-            🔍 Search
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              title="Refresh weather data"
+            >
+              🔄 Refresh
+            </button>
+            <button
+              onClick={() => setShowLocationSearch(true)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              title="Search locations"
+            >
+              🔍 Search
+            </button>
+          </div>
         </div>
 
         {geolocation.error && (

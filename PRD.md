@@ -172,16 +172,16 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want a clean, intuitive layout with easy navigation so I can access all features smoothly.
 
 **Acceptance Criteria:**
-- [ ] Header: app title, settings icon, refresh button
-- [ ] Main view: current weather + map (toggleable tabs or split view)
-- [ ] Hourly forecast below current weather
-- [ ] Daily forecast below hourly
-- [ ] Sidebar/bottom drawer: location favorites
-- [ ] Smooth transitions between views
-- [ ] Mobile: hamburger menu for favorites, tabs for weather/map
-- [ ] Desktop: sidebar always visible
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Header: app title, settings icon, refresh button
+- [x] Main view: current weather + map (toggleable tabs or split view)
+- [x] Hourly forecast below current weather
+- [x] Daily forecast below hourly
+- [x] Sidebar/bottom drawer: location favorites
+- [x] Smooth transitions between views
+- [x] Mobile: hamburger menu for favorites, tabs for weather/map
+- [x] Desktop: sidebar always visible
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-014: Add weather alerts and notifications
 **Description:** As a user, I want to see weather alerts (severe weather, extreme temps) prominently so I can stay informed of dangerous conditions.
