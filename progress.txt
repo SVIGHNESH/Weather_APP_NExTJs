@@ -1,7 +1,7 @@
 # Progress Log
 
 ## Status
-US-001 completed. Weather backend with multi-provider fallback is functional.
+US-001 & US-002 completed. Weather backend and database schema are ready.
 
 ## Learnings
 - Open-Meteo is used as the primary provider (free, no API key needed)
@@ -10,6 +10,9 @@ US-001 completed. Weather backend with multi-provider fallback is functional.
 - All providers map to unified WeatherResponse format
 - Express server returns 503 on complete failure
 - TypeScript strict mode is enforced
+- Prisma v7 requires connection URL in prisma.config.ts, not schema.prisma
+- SQLite is suitable for development; use PostgreSQL in production
+- Indices created on userId, isFavorite, lastAccessedAt for Location table
 
 ---
 
@@ -26,4 +29,18 @@ US-001 completed. Weather backend with multi-provider fallback is functional.
   - CacheManager uses coordinates rounded to 2 decimal places as cache key
   - Open-Meteo provides WMO weather codes that are mapped to descriptions
   - Error handling logs warnings for each failed provider before throwing 503
+
+## Iteration 2 - Create database schema for locations and favorites
+- Installed Prisma and PostgreSQL/SQLite support
+- Created User model with email and password fields
+- Created Location model linked to User with indices on userId, isFavorite, lastAccessedAt
+- Created LocationHistory model for tracking location access patterns
+- Ran migrations successfully
+- Database schema includes proper foreign key constraints with CASCADE delete
+- Files created: prisma/schema.prisma, prisma.config.ts, .env, prisma/migrations/
+- Learnings for future iterations:
+  - Prisma v7 moved database URL from schema.prisma to prisma.config.ts
+  - SQLite is good for development; production should use PostgreSQL
+  - Using CUID for IDs instead of UUID for better performance
+  - Location history table tracks every access for analytics
 ---
