@@ -5,19 +5,30 @@ import { CurrentWeatherDisplay } from '@/components/CurrentWeatherDisplay';
 import { HourlyForecast } from '@/components/HourlyForecast';
 import { DailyForecast } from '@/components/DailyForecast';
 import { WeatherMap } from '@/components/WeatherMap';
+import { SettingsPanel } from '@/components/SettingsPanel';
 import { useWeather } from '@/hooks/useWeather';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'weather' | 'map'>('weather');
-  const { weather, loading, error } = useWeather(40.7128, -74.006); // NYC coordinates
+  const geolocation = useGeolocation();
+  const { weather, loading, error } = useWeather(geolocation.latitude, geolocation.longitude);
+
+  const locationName = geolocation.permissionGranted ? 'Current Location' : 'New York (Default)';
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-8">
       <div className="max-w-2xl mx-auto">
         <div className="mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Weather App</h1>
-          <p className="text-gray-600">New York</p>
+          <p className="text-gray-600">{locationName}</p>
         </div>
+
+        {geolocation.error && (
+          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6">
+            {geolocation.error}
+          </div>
+        )}
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
@@ -60,9 +71,15 @@ export default function Home() {
 
         {/* Map view */}
         {activeTab === 'map' && (
-          <WeatherMap weather={weather} loading={loading} latitude={40.7128} longitude={-74.006} />
+          <WeatherMap weather={weather} loading={loading} latitude={geolocation.latitude} longitude={geolocation.longitude} />
         )}
       </div>
+
+      {/* Settings panel */}
+      <SettingsPanel
+        onEnableLocation={geolocation.requestPermissionAgain}
+        locationDenied={geolocation.error ? true : false}
+      />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 # Progress Log
 
 ## Status
-US-001, US-002, US-003, US-004, US-005, and US-006 completed. Backend API, current weather display, hourly forecast, and daily forecast components are ready.
+US-001, US-002, US-003, US-004, US-005, US-006, and US-007 completed. Backend API, current weather display, hourly forecast, daily forecast, and interactive map components are ready.
 
 ## Learnings
 - Open-Meteo is used as the primary provider (free, no API key needed)
@@ -22,6 +22,11 @@ US-001, US-002, US-003, US-004, US-005, and US-006 completed. Backend API, curre
 - Component props should use TypeScript interfaces for type safety
 - Date.setHours(0, 0, 0, 0) removes time component for date-only comparison
 - Expand/collapse animations use Tailwind's rotate-180 and animate-in classes for smooth UI transitions
+- Leaflet requires CSS import ('leaflet/dist/leaflet.css') to render correctly
+- Custom Leaflet controls extend L.Control class with onAdd method
+- Leaflet maps need window resize listeners to handle responsive layouts
+- Cloud layer can be refreshed by calling setUrl with new tile URL (no rebuild needed)
+- Fullscreen API is vendor-prefixed in older browsers (webkit, moz, ms)
 
 ---
 
@@ -115,4 +120,29 @@ US-001, US-002, US-003, US-004, US-005, and US-006 completed. Backend API, curre
   - Grid layout for hourly breakdown uses grid-cols-3 md:grid-cols-6 for responsive design
   - Card header uses flex with justify-between to separate day info from temp/precip
   - Hourly items in expanded view use grid to auto-fill available space
+
+## Iteration 7 - Implement real-time satellite/cloud map with Leaflet
+- Installed leaflet and @types/leaflet dependencies
+- Created WeatherMap React component using Leaflet library
+- Integrated OpenWeatherMap tile layer for cloud/satellite imagery
+- Added circle marker for current location with blue styling
+- Implemented custom fullscreen control button that extends L.Control
+- Added alert popups for weather alerts if available
+- Set up cloud layer refresh every 5 minutes (300,000ms interval)
+- Added window resize listener to handle responsive map sizing using map.invalidateSize()
+- Implemented proper cleanup (remove listeners, clear intervals, remove map from DOM)
+- Added tab-based navigation between Weather and Map views in main page
+- Tab buttons with active state styling and transitions
+- Files created: web/components/WeatherMap.tsx
+- Modified: web/app/page.tsx to include tabs and WeatherMap component
+- TypeScript compilation passes with no errors
+- Learnings for future iterations:
+  - Leaflet requires CSS import 'leaflet/dist/leaflet.css' at component level
+  - Custom controls extend L.Control with options and onAdd method
+  - Map needs useRef to persist instance across renders; check if map exists before creating new one
+  - Cloud layer refresh: call setUrl() on layer; no need to remove/re-add
+  - Fullscreen API requires vendor prefixes: webkit, moz, ms (webkit and moz most common)
+  - CloseButton property in popup is set to true/false, not 'true'/'false'
+  - Circle markers are better than regular markers for location display
+  - Layer groups (L.layerGroup) make it easy to add/remove multiple related elements
 ---

@@ -105,14 +105,14 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want the app to detect my location automatically and ask permission gracefully so I can see my local weather instantly.
 
 **Acceptance Criteria:**
-- [ ] Request geolocation on first load with clear permission prompt
-- [ ] Store permission preference in localStorage
-- [ ] Fall back to default location (e.g., NYC) if denied
-- [ ] Show "Enable location" button in settings if previously denied
-- [ ] Handle errors (permissions denied, location unavailable)
-- [ ] Update weather when location changes
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Request geolocation on first load with clear permission prompt
+- [x] Store permission preference in localStorage
+- [x] Fall back to default location (e.g., NYC) if denied
+- [x] Show "Enable location" button in settings if previously denied
+- [x] Handle errors (permissions denied, location unavailable)
+- [x] Update weather when location changes
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-009: Build location search with autocomplete
 **Description:** As a user, I want to search for cities/locations with autocomplete suggestions so I can quickly check weather anywhere.
