@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  
+  locations       Location[]
+  locationHistory LocationHistory[]
+}
+
+model Location {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  latitude      Float
+  longitude     Float
+  isFavorite    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  lastAccessedAt DateTime @default(now())
+
+  locationHistory LocationHistory[]
+
+  @@index([userId])
+  @@index([isFavorite])
+  @@index([lastAccessedAt])
+}
+
+model LocationHistory {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  accessedAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([locationId])
+}

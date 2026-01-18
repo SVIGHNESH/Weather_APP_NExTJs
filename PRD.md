@@ -34,11 +34,11 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a developer, I need to store user location history and favorites so users can quickly access weather for saved places.
 
 **Acceptance Criteria:**
-- [ ] Create `locations` table: id, userId, name, latitude, longitude, isFavorite, createdAt, lastAccessedAt
-- [ ] Create `location_history` table: id, userId, locationId, accessedAt
-- [ ] Add indices for userId, isFavorite, lastAccessedAt
-- [ ] Generate and run migrations successfully
-- [ ] Typecheck passes
+- [x] Create `locations` table: id, userId, name, latitude, longitude, isFavorite, createdAt, lastAccessedAt
+- [x] Create `location_history` table: id, userId, locationId, accessedAt
+- [x] Add indices for userId, isFavorite, lastAccessedAt
+- [x] Generate and run migrations successfully
+- [x] Typecheck passes
 
 ### US-003: Build authentication and location management API endpoints
 **Description:** As a developer, I need API endpoints for user authentication and location management so the app can save and retrieve user data.
