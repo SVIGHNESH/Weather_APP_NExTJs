@@ -200,15 +200,15 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a developer, I need fast load times and clear loading states so users see progress and the app feels responsive.
 
 **Acceptance Criteria:**
-- [ ] API calls timeout after 8 seconds
-- [ ] Skeleton loaders for current weather, hourly, daily sections
-- [ ] Pull-to-refresh gesture on mobile
-- [ ] Manual refresh button shows spinner
-- [ ] Lazy load map (load only when viewing map tab)
-- [ ] Image optimization for weather icons
-- [ ] Lighthouse score: Performance >85
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] API calls timeout after 8 seconds
+- [x] Skeleton loaders for current weather, hourly, daily sections
+- [x] Pull-to-refresh gesture on mobile
+- [x] Manual refresh button shows spinner
+- [x] Lazy load map (load only when viewing map tab)
+- [x] Image optimization for weather icons
+- [x] Lighthouse score: Performance >85
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ## Non-Goals
 
