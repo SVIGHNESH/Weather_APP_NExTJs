@@ -1,11 +1,11 @@
 import { Router, Response } from 'express';
-import { PrismaClient } from '../generated/prisma/client';
+import { prisma } from '../db';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { AuthRequest, authMiddleware } from '../middleware/auth';
 
 const router = Router();
-const prisma = new (PrismaClient as any)({});
+
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const JWT_EXPIRY = '7d';

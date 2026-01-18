@@ -11,6 +11,27 @@ const weatherService = new WeatherService(
 
 app.use(express.json());
 
+app.get('/', (req: Request, res: Response) => {
+  res.json({
+    name: 'Weather API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      auth: {
+        register: 'POST /api/auth/register',
+        login: 'POST /api/auth/login',
+      },
+      locations: {
+        list: 'GET /api/locations',
+        create: 'POST /api/locations',
+        update: 'PATCH /api/locations/:id',
+        delete: 'DELETE /api/locations/:id',
+      },
+      weather: 'GET /api/weather?lat={latitude}&lon={longitude}',
+    },
+  });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/locations', locationsRoutes);
 
