@@ -121,31 +121,29 @@ US-001, US-002, US-003, US-004, US-005, US-006, and US-007 completed. Backend AP
   - Card header uses flex with justify-between to separate day info from temp/precip
   - Hourly items in expanded view use grid to auto-fill available space
 
-## Iteration 12 - Add settings panel with theme and units toggle
-- Created useSettings hook with Context API for global settings state
-- Settings stored in localStorage with key 'weather_settings'
-- Supports temperature (°C/°F), speed (km/h/mph), pressure (hPa/inHg/mmHg), and theme (light/dark/auto)
-- Conversion functions: convertTemperature, convertSpeed, convertPressure
-- Format functions: formatTemperature, formatSpeed, formatPressure (returns value with unit)
-- Theme application: auto uses prefers-color-scheme media query; light/dark apply directly
-- Created SettingsProvider component that wraps app to provide settings context
-- Created SettingsModal component with toggle buttons for each setting
-- Updated SettingsPanel to include App Settings button that opens SettingsModal
-- Modal has 4 sections: Temperature, Speed, Pressure, Theme with visual feedback on selected option
-- Settings automatically persist to localStorage and update entire app in real-time
-- Updated CurrentWeatherDisplay to use formatTemperature, formatSpeed, formatPressure
-- Created providers.tsx to wrap app with SettingsProvider (client-side context)
-- Updated app/layout.tsx to use Providers component and updated metadata
-- Files created: web/hooks/useSettings.ts, web/components/SettingsModal.tsx, web/app/providers.tsx
-- Modified: web/components/SettingsPanel.tsx, web/app/layout.tsx, web/components/CurrentWeatherDisplay.tsx
+## Iteration 13 - Create main app layout and navigation
+- Added refresh button next to search button in header
+- Refresh button uses window.location.reload() to re-fetch weather data
+- Layout structure confirmed:
+  - Header: title, location name, last updated status, refresh & search buttons
+  - Tab navigation: Weather and Map views
+  - Main content: Current weather, hourly forecast, daily forecast
+  - Sidebar: Location favorites (left side with toggle)
+  - Settings: Bottom-right floating button (⚙️)
+- Mobile responsive: hamburger favorites button on left, tabs for weather/map switch
+- Desktop: sidebar always visible with smooth animations
+- Smooth transitions: Tab changes, sidebar slide-in, theme changes
+- Weather view flows: Current → Hourly → Daily from top to bottom
+- Map view displays full Leaflet map with weather overlay
+- All components work seamlessly with proper spacing and visual hierarchy
+- Files modified: web/app/page.tsx (added refresh button)
 - TypeScript compilation passes with no errors
 - Learnings for future iterations:
-  - React Context API works well for global app state with SettingsProvider pattern
-  - localStorage is synced instantly across tabs when using useEffect with dependency array
-  - Theme can be applied with document.documentElement.classList (html element)
-  - Auto theme uses window.matchMedia('(prefers-color-scheme: dark)').matches
-  - Unit conversion functions should handle rounding (use Math.round or toFixed)
-  - Format functions combine conversion and unit display (e.g., "72°F" or "45 mph")
-  - Settings modal should use grid layout for better UX (grid-cols-3 for 3 options)
-  - Button states can show selected option with bg-blue-500 vs bg-gray-100
+  - window.location.reload() is simple but hard-refreshes page (loses state)
+  - Could use state callback to re-fetch data instead of hard reload
+  - Header buttons in flex layout with gap-2 for proper spacing
+  - Responsive layout using flex justify-between for left/right alignment
+  - Mobile hamburger pattern using fixed positioning and transform translate-x
+  - Tab-based navigation scales well for weather/map views
+  - Floating UI elements (settings, refresh) use z-index layering (40, 50)
 ---

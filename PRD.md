@@ -187,14 +187,14 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see weather alerts (severe weather, extreme temps) prominently so I can stay informed of dangerous conditions.
 
 **Acceptance Criteria:**
-- [ ] Display alert banner at top if available
-- [ ] Show alert type (severe weather, extreme heat, etc.)
-- [ ] Include alert description and time range
-- [ ] Color coding: red=severe, orange=warning, yellow=advisory
-- [ ] Dismissible alerts
-- [ ] Optional: browser push notifications for severe alerts
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Display alert banner at top if available
+- [x] Show alert type (severe weather, extreme heat, etc.)
+- [x] Include alert description and time range
+- [x] Color coding: red=severe, orange=warning, yellow=advisory
+- [x] Dismissible alerts
+- [x] Optional: browser push notifications for severe alerts
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-015: Optimize performance and add loading states
 **Description:** As a developer, I need fast load times and clear loading states so users see progress and the app feels responsive.

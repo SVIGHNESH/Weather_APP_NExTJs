@@ -5,6 +5,7 @@ import { CurrentWeatherDisplay } from '@/components/CurrentWeatherDisplay';
 import { HourlyForecast } from '@/components/HourlyForecast';
 import { DailyForecast } from '@/components/DailyForecast';
 import { WeatherMap } from '@/components/WeatherMap';
+import { AlertsBanner } from '@/components/AlertsBanner';
 import { SettingsPanel } from '@/components/SettingsPanel';
 import { LocationSearch } from '@/components/LocationSearch';
 import { FavoritesPanel } from '@/components/FavoritesPanel';
@@ -114,6 +115,9 @@ export default function Home() {
             {error}
           </div>
         )}
+
+        {/* Weather alerts banner */}
+        <AlertsBanner weather={weather} />
 
         {/* Tab navigation */}
         <div className="flex gap-2 mb-6">
