@@ -121,29 +121,31 @@ US-001, US-002, US-003, US-004, US-005, US-006, and US-007 completed. Backend AP
   - Card header uses flex with justify-between to separate day info from temp/precip
   - Hourly items in expanded view use grid to auto-fill available space
 
-## Iteration 9 - Build location search with autocomplete
-- Created useLocationSearch hook with debounced geocoding API calls
-- Uses Open-Meteo geocoding API (free, no API key needed) for location suggestions
-- Implements 300ms debounce to reduce API calls while user is typing
-- Returns 5-10 location suggestions with name, coordinates, country, and admin1 (state/region)
-- Created LocationSearch modal component with search input
-- Modal displays location suggestions with full name, location, and coordinates
-- Clicking suggestion closes modal and triggers weather update
-- Loading state with spinner while searching
-- Error handling for failed API calls
-- Clear button to reset search
-- Modal backdrop that closes when clicked outside
-- Integrated search into main page with "🔍 Search" button in header
-- Location selection persists in state; weather updates when location changes
-- Selected location takes precedence over geolocation
-- Files created: web/hooks/useLocationSearch.ts, web/components/LocationSearch.tsx
-- Modified: web/app/page.tsx to include search button and LocationSearch modal
+## Iteration 10 - Build location favorites sidebar/panel
+- Created useFavoriteLocations hook to manage favorite locations
+- Favorites stored in localStorage with key 'favorite_locations'
+- Hook provides methods: addLocation, removeLocation, toggleFavorite, updateLastAccessed, getSortedFavorites
+- Created FavoritesPanel component with sidebar drawer
+- Sidebar slides in from left with smooth transition animation using -translate-x-full
+- Toggle button with ❤️ icon in top-left corner
+- Each favorite shows: name, coordinates, and last accessed date
+- Star icon (⭐/☆) to toggle favorite status without closing sidebar
+- Right-click or long-press to open context menu with delete option
+- Add new location button opens the location search modal
+- Recently accessed locations shown first via getSortedFavorites()
+- Sidebar has semi-transparent backdrop (bg-black/20) that closes sidebar on click
+- Location search now automatically adds searched locations to favorites
+- Clicking favorite location updates weather and lastAccessedAt timestamp
+- Files created: web/hooks/useFavoriteLocations.ts, web/components/FavoritesPanel.tsx
+- Modified: web/app/page.tsx to integrate favorites, import types, handle location selection
 - TypeScript compilation passes with no errors
 - Learnings for future iterations:
-  - Open-Meteo geocoding API: https://geocoding-api.open-meteo.com/v1/search?name={query}&count=10
-  - Debounce timer should be cleared before setting new one to avoid multiple API calls
-  - Modal dialog with backdrop can use fixed inset-0 and click on parent to detect outside clicks
-  - Location suggestions include admin1 (state/province) and country for disambiguation
-  - useRef with setTimeout/setInterval requires proper cleanup to avoid memory leaks
-  - Floating search button placed in header for easy access
+  - Sidebar animation: use transform translate-x with transition-transform duration-300
+  - Icon-based UI (emoji) is effective for simple actions without text
+  - Context menu can be shown on right-click with preventDefault()
+  - LocalStorage key format: snake_case with descriptive names
+  - Last accessed timestamp tracks user interaction patterns
+  - Favorites should auto-add on search for convenience
+  - Star icon toggle without close provides better UX
+  - Sort by timestamp descending (b - a) for most recent first
 ---

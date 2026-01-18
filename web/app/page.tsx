@@ -11,6 +11,7 @@ import { FavoritesPanel } from '@/components/FavoritesPanel';
 import { useWeather } from '@/hooks/useWeather';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { useFavoriteLocations } from '@/hooks/useFavoriteLocations';
+import { useServiceWorker } from '@/hooks/useServiceWorker';
 import { LocationSuggestion } from '@/hooks/useLocationSearch';
 
 export default function Home() {
@@ -21,9 +22,12 @@ export default function Home() {
   const geolocation = useGeolocation();
   const { favorites, addLocation, removeLocation, toggleFavorite, updateLastAccessed, getSortedFavorites } = useFavoriteLocations();
   
+  // Register service worker
+  useServiceWorker();
+  
   const latitude = selectedLocation?.latitude ?? geolocation.latitude;
   const longitude = selectedLocation?.longitude ?? geolocation.longitude;
-  const { weather, loading, error } = useWeather(latitude, longitude);
+  const { weather, loading, error, isOffline, isCached, lastUpdated } = useWeather(latitude, longitude);
 
   const locationName = selectedLocation?.name ?? (geolocation.permissionGranted ? 'Current Location' : 'New York (Default)');
 
@@ -70,6 +74,12 @@ export default function Home() {
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Weather App</h1>
             <p className="text-gray-600">{locationName}</p>
+            {(isOffline || (isCached && lastUpdated)) && (
+              <p className="text-sm text-gray-500 mt-1">
+                {isOffline && '🔴 Offline • '}
+                {lastUpdated && `Last updated: ${lastUpdated}`}
+              </p>
+            )}
           </div>
           <button
             onClick={() => setShowLocationSearch(true)}
@@ -87,7 +97,11 @@ export default function Home() {
         )}
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+          <div className={`border px-4 py-3 rounded-lg mb-6 ${
+            isOffline || isCached
+              ? 'bg-blue-100 border-blue-400 text-blue-700'
+              : 'bg-red-100 border-red-400 text-red-700'
+          }`}>
             {error}
           </div>
         )}

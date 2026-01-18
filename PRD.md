@@ -145,13 +145,13 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want the app to work offline with cached weather data so I can view last-known conditions without internet.
 
 **Acceptance Criteria:**
-- [ ] Cache current + hourly + daily data in localStorage
-- [ ] Cache expires after 1 hour (show "last updated" time)
-- [ ] On offline, display cached data with "offline" indicator
-- [ ] Attempt to refresh data when connection returns
-- [ ] Service worker caches static assets (JS, CSS, fonts)
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Cache current + hourly + daily data in localStorage
+- [x] Cache expires after 1 hour (show "last updated" time)
+- [x] On offline, display cached data with "offline" indicator
+- [x] Attempt to refresh data when connection returns
+- [x] Service worker caches static assets (JS, CSS, fonts)
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-012: Add settings panel with theme and units toggle
 **Description:** As a user, I want to toggle between Celsius/Fahrenheit and light/dark themes so I can customize the app to my preferences.
