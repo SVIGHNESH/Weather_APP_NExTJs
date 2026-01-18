@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { WeatherService } from './services/weatherService';
+import authRoutes from './routes/auth';
+import locationsRoutes from './routes/locations';
 
 const app = express();
 const weatherService = new WeatherService(
@@ -8,6 +10,9 @@ const weatherService = new WeatherService(
 );
 
 app.use(express.json());
+
+app.use('/api/auth', authRoutes);
+app.use('/api/locations', locationsRoutes);
 
 app.get('/api/weather', async (req: Request, res: Response) => {
   try {

@@ -44,14 +44,14 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a developer, I need API endpoints for user authentication and location management so the app can save and retrieve user data.
 
 **Acceptance Criteria:**
-- [ ] POST /api/auth/register - register new user
-- [ ] POST /api/auth/login - authenticate user
-- [ ] POST /api/locations - add new location/favorite
-- [ ] GET /api/locations - fetch all saved locations
-- [ ] DELETE /api/locations/{id} - remove location
-- [ ] PATCH /api/locations/{id} - toggle favorite flag
-- [ ] All endpoints include JWT authentication
-- [ ] Typecheck passes
+- [x] POST /api/auth/register - register new user
+- [x] POST /api/auth/login - authenticate user
+- [x] POST /api/locations - add new location/favorite
+- [x] GET /api/locations - fetch all saved locations
+- [x] DELETE /api/locations/{id} - remove location
+- [x] PATCH /api/locations/{id} - toggle favorite flag
+- [x] All endpoints include JWT authentication
+- [x] Typecheck passes
 
 ### US-004: Build current weather display component (Apple Weather style)
 **Description:** As a user, I want to see current weather prominently with feels-like temp, condition description, and key metrics so I understand conditions at a glance.
