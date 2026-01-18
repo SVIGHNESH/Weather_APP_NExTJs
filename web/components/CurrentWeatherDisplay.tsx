@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { WeatherData } from '@/types/weather';
+import { useSettings } from '@/hooks/useSettings';
 
 interface CurrentWeatherDisplayProps {
   weather: WeatherData | null;
@@ -25,6 +26,7 @@ export const CurrentWeatherDisplay: React.FC<CurrentWeatherDisplayProps> = ({
   loading,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
+  const { formatTemperature, formatSpeed, formatPressure } = useSettings();
 
   useEffect(() => {
     if (weather) {
@@ -72,9 +74,9 @@ export const CurrentWeatherDisplay: React.FC<CurrentWeatherDisplayProps> = ({
         </div>
 
         <div className="mb-4">
-          <div className="text-7xl font-bold text-white mb-2">{Math.round(temperature)}°</div>
+          <div className="text-7xl font-bold text-white mb-2">{formatTemperature(temperature)}</div>
           <p className="text-xl text-blue-50">
-            Feels like <span className="font-semibold">{Math.round(feelsLike)}°</span>
+            Feels like <span className="font-semibold">{formatTemperature(feelsLike)}</span>
           </p>
           <p className="text-lg text-blue-100 mt-2 capitalize">{condition}</p>
         </div>
@@ -88,12 +90,12 @@ export const CurrentWeatherDisplay: React.FC<CurrentWeatherDisplayProps> = ({
 
         <div className="bg-white bg-opacity-20 rounded-2xl p-4 backdrop-blur-sm hover:bg-opacity-30 transition-all">
           <div className="text-sm text-blue-50 font-medium">Wind Speed</div>
-          <div className="text-3xl font-bold text-white mt-2">{Math.round(windSpeed)} m/s</div>
+          <div className="text-3xl font-bold text-white mt-2">{formatSpeed(windSpeed)}</div>
         </div>
 
         <div className="bg-white bg-opacity-20 rounded-2xl p-4 backdrop-blur-sm hover:bg-opacity-30 transition-all">
           <div className="text-sm text-blue-50 font-medium">Pressure</div>
-          <div className="text-3xl font-bold text-white mt-2">{Math.round(pressure)} hPa</div>
+          <div className="text-3xl font-bold text-white mt-2">{formatPressure(pressure)}</div>
         </div>
 
         <div className="bg-white bg-opacity-20 rounded-2xl p-4 backdrop-blur-sm hover:bg-opacity-30 transition-all">
@@ -108,7 +110,7 @@ export const CurrentWeatherDisplay: React.FC<CurrentWeatherDisplayProps> = ({
 
         <div className="bg-white bg-opacity-20 rounded-2xl p-4 backdrop-blur-sm hover:bg-opacity-30 transition-all">
           <div className="text-sm text-blue-50 font-medium">Feels Like</div>
-          <div className="text-3xl font-bold text-white mt-2">{Math.round(feelsLike)}°</div>
+          <div className="text-3xl font-bold text-white mt-2">{formatTemperature(feelsLike)}</div>
         </div>
       </div>
     </div>

@@ -121,31 +121,36 @@ US-001, US-002, US-003, US-004, US-005, US-006, and US-007 completed. Backend AP
   - Card header uses flex with justify-between to separate day info from temp/precip
   - Hourly items in expanded view use grid to auto-fill available space
 
-## Iteration 10 - Build location favorites sidebar/panel
-- Created useFavoriteLocations hook to manage favorite locations
-- Favorites stored in localStorage with key 'favorite_locations'
-- Hook provides methods: addLocation, removeLocation, toggleFavorite, updateLastAccessed, getSortedFavorites
-- Created FavoritesPanel component with sidebar drawer
-- Sidebar slides in from left with smooth transition animation using -translate-x-full
-- Toggle button with ❤️ icon in top-left corner
-- Each favorite shows: name, coordinates, and last accessed date
-- Star icon (⭐/☆) to toggle favorite status without closing sidebar
-- Right-click or long-press to open context menu with delete option
-- Add new location button opens the location search modal
-- Recently accessed locations shown first via getSortedFavorites()
-- Sidebar has semi-transparent backdrop (bg-black/20) that closes sidebar on click
-- Location search now automatically adds searched locations to favorites
-- Clicking favorite location updates weather and lastAccessedAt timestamp
-- Files created: web/hooks/useFavoriteLocations.ts, web/components/FavoritesPanel.tsx
-- Modified: web/app/page.tsx to integrate favorites, import types, handle location selection
+## Iteration 11 - Implement data persistence and offline mode
+- Created useWeatherCache hook to manage weather data caching in localStorage
+- Cache key generated from rounded coordinates (rounded to 2 decimal places for consistency)
+- Cache expires after 1 hour (3,600,000ms); expired entries are automatically removed
+- Returns offline status by monitoring navigator.onLine and window online/offline events
+- Displays "last updated" time using formatLastUpdated helper function (human-readable format)
+- Created service worker (public/sw.js) with cache-first strategy for static assets
+- Service worker includes network-first strategy for API calls with fallback to cached responses
+- Cache-first for _next/ resources, JS, CSS, fonts, images; network-first for API and HTML
+- Service worker automatically cleans up old caches on activation
+- Created useServiceWorker hook to register service worker on app load
+- Updated useWeather hook to use caching:
+  - Tries to fetch fresh data first
+  - Falls back to cached data if fetch fails or offline
+  - Sets appropriate error messages for offline vs. error states
+  - 8-second timeout on API calls to handle slow networks gracefully
+- Updated main page to:
+  - Show offline indicator (🔴) and last updated time in subtitle
+  - Display blue banner (not red) when showing cached data
+  - Pass offline and isCached status from useWeather
+- Files created: web/hooks/useWeatherCache.ts, web/hooks/useServiceWorker.ts, web/public/sw.js
+- Modified: web/hooks/useWeather.ts, web/app/page.tsx
 - TypeScript compilation passes with no errors
 - Learnings for future iterations:
-  - Sidebar animation: use transform translate-x with transition-transform duration-300
-  - Icon-based UI (emoji) is effective for simple actions without text
-  - Context menu can be shown on right-click with preventDefault()
-  - LocalStorage key format: snake_case with descriptive names
-  - Last accessed timestamp tracks user interaction patterns
-  - Favorites should auto-add on search for convenience
-  - Star icon toggle without close provides better UX
-  - Sort by timestamp descending (b - a) for most recent first
+  - Cache key should include rounded coordinates for consistency across views
+  - Cache entry structure: { data, timestamp, expiresAt } for expiration checking
+  - formatLastUpdated uses diffMs / 60000 for minutes, then hours, then full date
+  - Service worker: cache-first for static assets (fast), network-first for API (fresh)
+  - Service worker catches API errors and returns cached responses from previous calls
+  - navigator.onLine is not always reliable; use addEventListener for 'online' and 'offline'
+  - AbortSignal.timeout(ms) for fetch timeout is modern API; use AbortController for older browsers
+  - Error messages should differentiate between offline and network failure
 ---

@@ -157,16 +157,16 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to toggle between Celsius/Fahrenheit and light/dark themes so I can customize the app to my preferences.
 
 **Acceptance Criteria:**
-- [ ] Settings modal/drawer with toggles for:
-  - [ ] Temperature unit (°C / °F)
-  - [ ] Speed unit (km/h / mph)
-  - [ ] Theme (Light / Dark / Auto)
-  - [ ] Pressure unit (hPa / inHg / mmHg)
-- [ ] Settings persist in localStorage
-- [ ] Theme changes apply instantly
-- [ ] All values update throughout app when units change
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Settings modal/drawer with toggles for:
+  - [x] Temperature unit (°C / °F)
+  - [x] Speed unit (km/h / mph)
+  - [x] Theme (Light / Dark / Auto)
+  - [x] Pressure unit (hPa / inHg / mmHg)
+- [x] Settings persist in localStorage
+- [x] Theme changes apply instantly
+- [x] All values update throughout app when units change
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-013: Create main app layout and navigation
 **Description:** As a user, I want a clean, intuitive layout with easy navigation so I can access all features smoothly.
