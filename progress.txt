@@ -1,7 +1,7 @@
 # Progress Log
 
 ## Status
-US-001, US-002, and US-003 completed. Authentication and location management APIs are ready.
+US-001, US-002, US-003, and US-004 completed. Backend API and current weather display component are ready.
 
 ## Learnings
 - Open-Meteo is used as the primary provider (free, no API key needed)
@@ -16,6 +16,10 @@ US-001, US-002, and US-003 completed. Authentication and location management API
 - When using generated Prisma client from src/generated/prisma/client, use (PrismaClient as any)({}) for instantiation
 - JWT tokens expire after 7 days
 - Route parameters from Express can be strings or string arrays; normalize them with Array.isArray() check
+- Next.js 16+ is initialized with TypeScript and Tailwind CSS
+- React hooks like useEffect can trigger re-renders; useWeather hook fetches weather data on lat/lon changes
+- Tailwind CSS provides utility classes for responsive design (md:, lg: prefixes)
+- Component props should use TypeScript interfaces for type safety
 
 ---
 
@@ -66,4 +70,29 @@ US-001, US-002, and US-003 completed. Authentication and location management API
   - JWT secret can be configured via JWT_SECRET environment variable
   - Express route params with (/:id) can be strings or arrays depending on request; normalize them
   - Created PrismaClient instance per route file (could be optimized as singleton in production)
+
+## Iteration 4 - Build current weather display component
+- Initialized Next.js 16 project with TypeScript and Tailwind CSS in /web directory
+- Created weather types file with WeatherData interface containing current, hourly, daily, and alerts data
+- Created useWeather hook that fetches weather data from backend API using lat/lon coordinates
+- Built CurrentWeatherDisplay React component with:
+  - Large temperature display showing feels-like temperature highlighted
+  - Weather emoji icons based on condition strings
+  - Grid layout (2 columns mobile, 3 columns desktop) showing humidity, wind speed, pressure, UV index, visibility, feels-like
+  - Responsive design using Tailwind CSS breakpoints (md: for medium+ screens)
+  - Smooth fade and scale animations on data refresh using CSS transitions
+  - Loading skeleton state while fetching data
+  - Error state display
+- Updated main page.tsx to use the component with NYC coordinates as default
+- Created .env.local with NEXT_PUBLIC_API_URL pointing to backend API
+- Both backend and frontend compile successfully with TypeScript
+- Files created: web/components/CurrentWeatherDisplay.tsx, web/hooks/useWeather.ts, web/types/weather.ts, web/app/page.tsx (.env.local)
+- Modified: web/app/page.tsx to integrate CurrentWeatherDisplay
+- Learnings for future iterations:
+  - Next.js components must be marked with 'use client' to use React hooks on client side
+  - NEXT_PUBLIC_ prefix makes environment variables accessible to client-side code
+  - Tailwind CSS transitions and animations provide smooth UX without writing custom CSS
+  - Weather icons can be represented with emojis for simplicity; more complex icons require icon libraries
+  - Grid layouts in Tailwind use grid-cols-{n} and can be responsive with md:grid-cols-{n}
+  - Component re-renders can be optimized by memoizing or checking dependencies in useEffect
 ---
