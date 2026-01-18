@@ -1,7 +1,7 @@
 # Progress Log
 
 ## Status
-US-001, US-002, US-003, and US-004 completed. Backend API and current weather display component are ready.
+US-001, US-002, US-003, US-004, US-005, and US-006 completed. Backend API, current weather display, hourly forecast, and daily forecast components are ready.
 
 ## Learnings
 - Open-Meteo is used as the primary provider (free, no API key needed)
@@ -20,6 +20,8 @@ US-001, US-002, US-003, and US-004 completed. Backend API and current weather di
 - React hooks like useEffect can trigger re-renders; useWeather hook fetches weather data on lat/lon changes
 - Tailwind CSS provides utility classes for responsive design (md:, lg: prefixes)
 - Component props should use TypeScript interfaces for type safety
+- Date.setHours(0, 0, 0, 0) removes time component for date-only comparison
+- Expand/collapse animations use Tailwind's rotate-180 and animate-in classes for smooth UI transitions
 
 ---
 
@@ -92,4 +94,25 @@ US-001, US-002, US-003, and US-004 completed. Backend API and current weather di
   - Detailed info shows only when an hour is selected, using state management
   - Time formatting uses 12-hour format with AM/PM indicator
   - Grid layout for detailed info uses grid-cols-3 to display 3 key metrics
+
+## Iteration 6 - Build daily forecast component with max/min temps
+- Created DailyForecast React component with 7-day forecast cards
+- Each card displays: day name (Today/Tomorrow/date), condition icon, high/low temps, precipitation %
+- Implemented expandable cards that show hourly breakdown for each day
+- Smooth expand/collapse animations using Tailwind's rotate-180 and animate-in classes
+- Mobile-friendly vertical scroll layout with proper spacing
+- Daily cards have gradient background with hover effects for better UX
+- Hourly breakdown grid displays 3-6 columns depending on screen size (grid-cols-3 md:grid-cols-6)
+- Weather emoji function reused from HourlyForecast component for consistency
+- Date formatting: "Today", "Tomorrow", or "Mon, Jan 20" format
+- Files created: web/components/DailyForecast.tsx
+- Modified: web/app/page.tsx to import and include DailyForecast component
+- TypeScript compilation passes with no errors
+- Learnings for future iterations:
+  - Use Date.setHours(0, 0, 0, 0) to normalize dates for comparison (removes time component)
+  - Filter hourly data for specific day using dateTime comparison at midnight
+  - Expand/collapse animation uses rotate-180 class on chevron icon with duration-300
+  - Grid layout for hourly breakdown uses grid-cols-3 md:grid-cols-6 for responsive design
+  - Card header uses flex with justify-between to separate day info from temp/precip
+  - Hourly items in expanded view use grid to auto-fill available space
 ---

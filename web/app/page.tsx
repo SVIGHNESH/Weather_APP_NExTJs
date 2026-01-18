@@ -1,11 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { CurrentWeatherDisplay } from '@/components/CurrentWeatherDisplay';
 import { HourlyForecast } from '@/components/HourlyForecast';
 import { DailyForecast } from '@/components/DailyForecast';
+import { WeatherMap } from '@/components/WeatherMap';
 import { useWeather } from '@/hooks/useWeather';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<'weather' | 'map'>('weather');
   const { weather, loading, error } = useWeather(40.7128, -74.006); // NYC coordinates
 
   return (
@@ -22,9 +25,43 @@ export default function Home() {
           </div>
         )}
 
-        <CurrentWeatherDisplay weather={weather} loading={loading} />
-        <HourlyForecast weather={weather} loading={loading} />
-        <DailyForecast weather={weather} loading={loading} />
+        {/* Tab navigation */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab('weather')}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              activeTab === 'weather'
+                ? 'bg-blue-500 text-white'
+                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+            }`}
+          >
+            Weather
+          </button>
+          <button
+            onClick={() => setActiveTab('map')}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              activeTab === 'map'
+                ? 'bg-blue-500 text-white'
+                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+            }`}
+          >
+            Map
+          </button>
+        </div>
+
+        {/* Weather view */}
+        {activeTab === 'weather' && (
+          <>
+            <CurrentWeatherDisplay weather={weather} loading={loading} />
+            <HourlyForecast weather={weather} loading={loading} />
+            <DailyForecast weather={weather} loading={loading} />
+          </>
+        )}
+
+        {/* Map view */}
+        {activeTab === 'map' && (
+          <WeatherMap weather={weather} loading={loading} latitude={40.7128} longitude={-74.006} />
+        )}
       </div>
     </main>
   );

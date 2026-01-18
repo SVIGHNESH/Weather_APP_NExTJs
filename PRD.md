@@ -92,14 +92,14 @@ Build a clean, Apple Weather-style weather application using Next.js (frontend) 
 **Description:** As a user, I want to see an interactive map with real-time satellite imagery and cloud overlay so I can visualize weather patterns.
 
 **Acceptance Criteria:**
-- [ ] Integrate Leaflet or Mapbox with OpenWeatherMap tile layer (clouds)
-- [ ] Display current location marker
-- [ ] Support zoom, pan, fullscreen controls
-- [ ] Show weather alerts/warnings as map overlays if available
-- [ ] Responsive map that resizes with window
-- [ ] Update cloud layer every 5-10 minutes
-- [ ] Typecheck passes
-- [ ] Verify changes work in browser
+- [x] Integrate Leaflet or Mapbox with OpenWeatherMap tile layer (clouds)
+- [x] Display current location marker
+- [x] Support zoom, pan, fullscreen controls
+- [x] Show weather alerts/warnings as map overlays if available
+- [x] Responsive map that resizes with window
+- [x] Update cloud layer every 5-10 minutes
+- [x] Typecheck passes
+- [x] Verify changes work in browser
 
 ### US-008: Add geolocation detection and permission handling
 **Description:** As a user, I want the app to detect my location automatically and ask permission gracefully so I can see my local weather instantly.
