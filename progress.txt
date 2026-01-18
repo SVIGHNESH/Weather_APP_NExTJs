@@ -1,9 +1,29 @@
 # Progress Log
 
 ## Status
-PRD created and ready for implementation.
+US-001 completed. Weather backend with multi-provider fallback is functional.
 
 ## Learnings
-(Patterns discovered during implementation will be recorded here)
+- Open-Meteo is used as the primary provider (free, no API key needed)
+- Fallback chain: Open-Meteo → OpenWeatherMap → WeatherAPI
+- 10-minute cache using in-memory Map to reduce API calls
+- All providers map to unified WeatherResponse format
+- Express server returns 503 on complete failure
+- TypeScript strict mode is enforced
 
+---
+
+## Iteration 1 - Set up multi-provider weather backend
+- Implemented three weather provider clients (Open-Meteo, OpenWeatherMap, WeatherAPI)
+- Created unified WeatherResponse type that all providers map to
+- Built CacheManager with 10-minute TTL for responses
+- Created WeatherService with fallback chain logic
+- Set up Express server with GET /api/weather?lat={lat}&lon={lon} endpoint
+- Error handling returns 503 when all providers fail
+- Files created: src/types/weather.ts, src/services/{openMeteoClient,openWeatherMapClient,weatherApiClient,weatherService}.ts, src/utils/cache.ts, src/server.ts, tsconfig.json
+- Learnings for future iterations:
+  - All three provider APIs have different response formats that need mapping
+  - CacheManager uses coordinates rounded to 2 decimal places as cache key
+  - Open-Meteo provides WMO weather codes that are mapped to descriptions
+  - Error handling logs warnings for each failed provider before throwing 503
 ---
